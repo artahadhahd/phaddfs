@@ -58,9 +58,14 @@ class Visualizer
             Rectangle rect = new(center.X, center.Y, force, _thickness);
             Raylib.DrawRectanglePro(rect, origin, angle * (int)Direction, Raylib.ORANGE);
         }
-        Rectangle fResVec = new(center.X, center.Y, Vector2.Distance(sum, origin), _thickness);
+        float fRes = Vector2.Distance(sum, origin);
+        Rectangle fResVec = new(center.X, center.Y, fRes, _thickness);
         float resultAngle = (float)(Math.Atan2(sum.Y, sum.X) * (180 / Math.PI));
         Raylib.DrawRectanglePro(fResVec, origin, resultAngle * (int)Direction, Raylib.MAGENTA);
+
+        string max = fRes.ToString();
+        Rectangle resultantRect = new(Raylib.GetScreenWidth() - max.Length - 100, 5, 90, 30);
+        RayGui.GuiTextBox(resultantRect, $"{max}", 10, false);
     }
 
     public void RmLast()
