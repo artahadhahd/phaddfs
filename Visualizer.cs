@@ -1,7 +1,8 @@
-﻿using Raylib_cs;
+﻿using Raylib_CsLo;
 using System.Numerics;
 using Newton = float;
 using Degrees = float;
+using System.Data;
 
 namespace Visualizer;
 
@@ -20,7 +21,7 @@ class Visualizer
 
     public float Thickness
     {
-        get => _thickness;
+        //get => _thickness;
         set => _thickness = value;
     }
 
@@ -54,11 +55,22 @@ class Visualizer
             var y = (float)(Math.Sin(angle * Math.PI / 180) * force);
             sum.X += x;
             sum.Y += y;
-            Rectangle rect = new(center, force, _thickness);
-            Raylib.DrawRectanglePro(rect, origin, angle * (int)Direction, Color.Orange);
+            Rectangle rect = new(center.X, center.Y, force, _thickness);
+            Raylib.DrawRectanglePro(rect, origin, angle * (int)Direction, Raylib.ORANGE);
         }
-        Rectangle fResVec = new(center, Vector2.Distance(sum, origin), _thickness);
+        Rectangle fResVec = new(center.X, center.Y, Vector2.Distance(sum, origin), _thickness);
         float resultAngle = (float)(Math.Atan2(sum.Y, sum.X) * (180 / Math.PI));
-        Raylib.DrawRectanglePro(fResVec, origin, resultAngle * (int)Direction, Color.Magenta);
+        Raylib.DrawRectanglePro(fResVec, origin, resultAngle * (int)Direction, Raylib.MAGENTA);
+    }
+
+    public void RmLast()
+    {
+        // angles and forces have the same length.
+        var idx = _angles.Count - 1;
+        if (idx >= 0)
+        {
+            _forces.RemoveAt(idx);
+            _angles.RemoveAt(idx);
+        }
     }
 }
