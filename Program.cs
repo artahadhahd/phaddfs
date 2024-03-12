@@ -26,7 +26,7 @@ class Program
 
         Raylib.SetTraceLogLevel((int)TraceLogLevel.LOG_NONE);
         Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
-        Raylib.InitWindow(width, height, "Kräfte addieren");
+        Raylib.InitWindow(width, height, "Add Forces");
 
         Gui gui = new();
 
